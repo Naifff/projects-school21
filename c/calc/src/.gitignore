@@ -1,0 +1,5 @@
+.vscode
+output/*.o
+src/*.o
+include/*.o
+
