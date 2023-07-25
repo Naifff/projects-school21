@@ -1,0 +1,40 @@
+stages:
+  - build 
+  - test
+  - deploy
+
+build:
+  stage: build
+  script:
+    - make s21_cat -C src/cat
+    - make s21_grep -C src/grep
+  after_script:
+    - bash scripts/bot.sh $CI_JOB_STATUS "build"
+  artifacts:
+    paths:
+      - src/cat/s21_cat 
+      - src/grep/s21_grep
+    expire_in: 30 days
+
+style:
+  stage: test
+  script:
+    - clang-format --style=Google -n -Werror src/cat/*.c src/cat/*.h src/grep/*.c src/grep/*.h
+  after_script:
+    - bash scripts/bot.sh $CI_JOB_STATUS "style"
+
+test:
+  stage: test
+  script:
+    - bash scripts/test.sh
+  after_script:
+    - bash scripts/bot.sh $CI_JOB_STATUS "test"
+
+deploy:
+  stage: deploy
+  when: manual
+  script:
+    - bash scripts/deploy.sh
+  after_script:
+    - bash scripts/bot.sh $CI_JOB_STATUS "deploy"
+ 

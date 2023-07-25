@@ -1,0 +1,16 @@
+[
+    {
+        "name": "Петр",
+        "surname": "Петров",
+        "patronymic": "Васильевич",
+        "age": 23,
+        "occupation": "ойтишнек"
+    },
+    {
+        "name": "Василий",
+        "surname": "Васильев",
+        "patronymic": "Петрович",
+        "age": 24,
+        "occupation": "дворник"
+    }
+]
